@@ -1,11 +1,10 @@
 
-introduction
-===
+## introduction
+
 A working alt example
 
 1. alt
 2. es6
-3. hot-module-reload
 
 
 steps

@@ -1,27 +1,22 @@
 
 import React, {Component} from 'react';
+import connectToStores from 'alt/utils/connectToStores';
 import LocationStore from '../stores/LocationStore';
 import LocationActions from '../actions/LocationActions';
 
+@connectToStores
 class Locations extends React.Component {
+  static getStores() {
+    return [LocationStore]
+  }
+
+  static getPropsFromStores() {
+    return LocationStore.getState();
+  }
 
   constructor(props) {
     super(props);
-    this.state = LocationStore.getState();
-    this.handleStoreChange = this.handleStoreChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    LocationStore.listen(this.handleStoreChange);
-  }
-
-  componentWillUnmount() {
-    LocationStore.unlisten(this.handleStoreChange);
-  }
-
-  handleStoreChange(state) {
-    this.setState(state);
   }
 
   handleClick() {
@@ -30,13 +25,13 @@ class Locations extends React.Component {
 
   render() {
     console.log ('render');
-    if (this.state.errorMessage) {
+    if (this.props.errorMessage) {
       return (
-        <div>`something is wrong ${this.state.errorMessage}`</div>
+        <div>`something is wrong ${this.props.errorMessage}`</div>
       );
     }
 
-    if (!this.state.locations.length) {
+    if (!this.props.locations.length) {
       return (
         <div>Loading ...</div>    
       )
@@ -45,7 +40,7 @@ class Locations extends React.Component {
       <div id="main">
         <button onClick={this.handleClick}>fetch</button>
         <ul>
-          {this.state.locations.map((location, index) => {
+          {this.props.locations.map((location, index) => {
             return (
               <li key={index}>{location.name}</li>
             );

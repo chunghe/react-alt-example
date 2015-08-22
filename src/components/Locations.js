@@ -1,19 +1,10 @@
 
 import React, {Component} from 'react';
-import connectToStores from 'alt/utils/connectToStores';
+import AltContainer from 'alt/AltContainer';
 import LocationStore from '../stores/LocationStore';
 import LocationActions from '../actions/LocationActions';
 
-@connectToStores
 class Locations extends React.Component {
-  static getStores() {
-    return [LocationStore]
-  }
-
-  static getPropsFromStores() {
-    return LocationStore.getState();
-  }
-
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -51,4 +42,14 @@ class Locations extends React.Component {
   }
 }
 
-export default Locations;
+class LocationsContainer extends React.Component {
+  render() {
+    return (
+      <AltContainer store={LocationStore}>
+        <Locations />
+      </AltContainer>
+    )
+  }
+}
+
+export default LocationsContainer;

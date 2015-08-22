@@ -29,4 +29,9 @@ class LocationStore {
   }
 }
 
+
+// http://alt.js.org/docs/createStore/
+// The name of the store comes from the class name but on production 
+// due to heavy minification it is a good idea to provide your own name 
+// to avoid collisions.
 module.exports = alt.createStore(LocationStore, 'LocationStore');

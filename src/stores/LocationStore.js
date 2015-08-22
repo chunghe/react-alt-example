@@ -6,25 +6,33 @@ import LocationActions from '../actions/LocationActions';
 class LocationStore {
   constructor() {
     this.locations = [{name: 'aa'}, {name: 'bb'}];
+    // Actions who have a onCamelCasedAction method or an actionName 
+    // method available in the store will be bound. In this example 
+    // locationActions.updateLocations will be handled by onUpdateLocations. 
+    // There is no difference between calling the action handler 
+    // updateLocation or onUpdateLocations it's just a matter of aesthetic preference.
+    this.bindActions(LocationActions);
 
+    /*
     this.bindListeners({
       handleUpdateLocations: LocationActions.updateLocations,
       handleFetchLocations: LocationActions.fetchLocations,
       handleLocationsFailed: LocationActions.locationsFailed
     });
+    */
   }
 
-  handleUpdateLocations(locations) {
+  onUpdateLocations(locations) {
     this.locations = locations;
   }
 
   // reset the array while we're fetching new locations so React can
   // be smart and render a spinner for us since the data is empty.
-  handleFetchLocations() {
+  onFetchLocations() {
     this.locations = [];
   }
 
-  handleLocationsFailed(errorMessage) {
+  onLocationsFailed(errorMessage) {
     this.errorMessage = errorMessage;
   }
 }
